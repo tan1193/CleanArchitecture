@@ -106,7 +106,7 @@ public partial class Testing
         {
             await _checkpoint.ResetAsync(_configuration.GetConnectionString("DefaultConnection")!);
         }
-        catch (Exception) 
+        catch
         {
         }
 

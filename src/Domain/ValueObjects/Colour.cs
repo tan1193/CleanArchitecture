@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.Domain.ValueObjects;
 
-public class Colour : ValueObject
+public sealed class Colour : ValueObject
 {
     static Colour()
     {
@@ -19,12 +19,7 @@ public class Colour : ValueObject
     {
         var colour = new Colour { Code = code };
 
-        if (!SupportedColours.Contains(colour))
-        {
-            throw new UnsupportedColourException(code);
-        }
-
-        return colour;
+        return !SupportedColours.Contains(colour) ? throw new UnsupportedColourException(code) : colour;
     }
 
     public static Colour White => new("#FFFFFF");
@@ -60,7 +55,7 @@ public class Colour : ValueObject
         return Code;
     }
 
-    protected static IEnumerable<Colour> SupportedColours
+    public static IEnumerable<Colour> SupportedColours
     {
         get
         {
